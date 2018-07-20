@@ -7,42 +7,24 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="bidding-title">
-                    <h3>{{$assignment->name}}</h3>
+                    <h2>{{$assignment->name}}</h2>
                 </div>
             </div>
         </div>
         <div class="bidding-header">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="bidding-info">
-                    <div class="bidding-details">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 col-lg-3">
-                                <div class="bid-info">
-                                    
-                                    <div class="budget">
-                                        <h5>Budget(USD)</h5>
-                                        <h3 class="amount">${{Auth::user()->user_type == 2 ? $assignment->price*0.4 : $assignment->price}}</h3>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6">
-                                
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3">
-                                <div class="open-button">
-                                    <h3>{{$assignment->statustext}}</h3>
-                                </div>
-                            </div>
+           
+                        <div class="budget">
+                            
+                            <h3 class="amount">Budget: ${{Auth::user()->user_type == 2 ? $assignment->writer_price : $assignment->price}}</h3>
                         </div>
-                    </div>
-                </div>
-            </div>
+                            
+                            
+                
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-9 col-lg-9">
                 <div class="project-description">
-                    <h4 class="title">Description</h4>
+                    <h3 class="title">Description</h3>
                     <div>{{$assignment->description}}</div>
                     @if (!$assignment->taken_by && Auth::user()->user_type == 2)
                         @cannot('pick', $assignment)
@@ -66,17 +48,17 @@
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <div class="employee-info">
-                    <h4 class="title">Other information</h4>
+                    <h3 class="title">Other information</h3>
                     
-                    Category: <b>{{isset($assignment->category->name) ? $assignment->category->name : ""}}</b> <br>     
-                    Deadline: <b>{{isset($assignment->deadline) ? $assignment->deadline : ""}}</b> <br> 
-                    Level: <b>{{isset($assignment->levelf->name) ? $assignment->levelf->name : ""}}</b> <br>
-                    Number of pages: <b>{{isset($assignment->pages) ? $assignment->pages : ""}}</b> <br>    
-                    Spacing: <b>{{$assignment->spacing == 1 ? "Double Spaced" : "Single Spaced"}}</b> <br>
-                    Academic Level: <b>{{isset($assignment->academic->name) ? $assignment->academic->name : ""}}</b> <br>
-                    Style: <b>{{isset($assignment->stylef->name) ? $assignment->stylef->name : ""}}</b> <br>
-                    Language style: <b>{{isset($assignment->languagef->name) ? $assignment->languagef->name : ""}}</b> <br>
-                    Number of resoures: <b>{{isset($assignment->sources) ? $assignment->sources : ""}}</b> <br>
+                    <p>Category: <b>{{isset($assignment->category->name) ? $assignment->category->name : ""}}</b> </p>     
+                        <p>Deadline: <b>{{isset($assignment->deadline) ? $assignment->deadline : ""}}</b> </p> 
+                            <p>Level: <b>{{isset($assignment->levelf->name) ? $assignment->levelf->name : ""}}</b> </p>
+                                <p>Number of pages: <b>{{isset($assignment->pages) ? $assignment->pages : ""}}</b> </p>    
+                                    <p>Spacing: <b>{{$assignment->spacing == 1 ? "Double Spaced" : "Single Spaced"}}</b> </p>
+                                        <p>Academic Level: <b>{{isset($assignment->academic->name) ? $assignment->academic->name : ""}}</b> </p>
+                                            <p>Style: <b>{{isset($assignment->stylef->name) ? $assignment->stylef->name : ""}}</b> </p>
+                                                <p>Language style: <b>{{isset($assignment->languagef->name) ? $assignment->languagef->name : ""}}</b> </p>
+                                                    <p>Number of resoures: <b>{{isset($assignment->sources) ? $assignment->sources : ""}}</b> </p>
 
 
                 </div>
@@ -108,6 +90,8 @@
                             
                             
                         </div>
+                        <p></p>
+                        <p></p>
                         <div class="chat-panel-footer">
                             <form method="POST"  action="{{ route('message.store') }}">
                                 @csrf
@@ -120,12 +104,13 @@
                                     <input type="hidden" name="to" value="{{Auth::user()->id == $assignment->created_by ? $assignment->taken_by : $assignment->created_by}}">
                                     <span class="input-group-btn">
                                         
-                                        <button type="submit" class="btn btn-pure btn-default icon message-send waves-effect waves-light waves-round"></button>
+                                        <button type="submit" class="btn btn-pure btn-default icon message-send waves-effect waves-light waves-round">Send</button>
                                         
                                     </span>
+                                    
                                 </div>
                             </form>
-                            <br>
+                            <p></p><p></p>
                         </div>
                     
                 </div>
@@ -156,8 +141,8 @@
                                                         {{$std_attach->name}}
                                                     </a>
                                                     @if(Auth::user()->id == $std_attach->created_by)
-                                                    <a class="delete" href="{{route('delete',['id'=>$std_attach->id])}}">
-                                                        <i class="icofont icofont-trash"></i>
+                                                    <a class="delete" style="color:#da5400" href="{{route('delete',['id'=>$std_attach->id])}}">
+                                                        Delete
                                                     </a>
                                                     @endif
                                                 </div>

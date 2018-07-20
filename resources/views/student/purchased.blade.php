@@ -2,11 +2,13 @@
 
 @section('content')
 <div class="container">
+        <p></p>
+        <p></p>
         <a href="{{route('student.dashboard')}}" class="btn btn-info">Orders</a> 
         <a href="{{route('student.purchased')}}"class="btn btn-success">Purchased</a> 
         <a href="{{route('assignment.edit',['id'=>0])}}"class="btn btn-info">Create order</a> 
-        <br>
-        <br>
+        <p></p>
+        <p></p>
         <table class="table table-bordered">
             <thead>
             <tr>

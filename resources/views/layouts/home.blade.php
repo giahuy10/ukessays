@@ -137,7 +137,6 @@
       <meta name="viewport" content="width=device-width, maximum-scale=1.0">
       <link href="https://www.bestessays.com/styles_v1532092507/home-adaptive/owl.carousel.css" rel="stylesheet" type="text/css"/>
 
-      <link href="{{ asset('css/main.css') }}" rel="stylesheet">
       <script src="{{ asset('js/app.js') }}"></script>
 
       @yield('css')
@@ -218,7 +217,8 @@
                             <li class="nav-item dropdown">
                                     <a class="nav-link" role="button" href="{{route('contact')}}">Contact us</a>	
                                 </li>
-                                @if (Auth::user()->status >=1)
+
+                                @if (isset(Auth::user()->status) && Auth::user()->status >=1)
 											<li class="nav-item dropdown">
 												@if (Auth::user()->user_type == 1)
 												

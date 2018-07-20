@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" id="app">
+<div class="container">
     <div class="post-project">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-               
-                <div class="job-detail">
+                <div class="get-job-title">
+                    <h2 class="title">Get your Job Done !</h2>
+                    <p>Post a Job for Free - Start receiving proposals within minutes</p>
+                </div>
                 
-                <form class="orderform" method="POST"  action="{{ route('assignment.store') }}" >
+                <form class="submit-info" method="POST"  action="{{ route('assignment.store') }}" >
                     @csrf
-                    <div class="pick-category">
-                        <p class="info-title">Topic?</p>
-                        <div class="form-group">
-                                <input type="text" v-model="order.name" name="name" class="form-control" placeholder="">
-
-                        </div>
+                    <div class="need-info">
+                        <p class="info-title">What do you need to get done?</p>
+                        <p class="tooltip-icon"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor."><i class="icofont icofont-question-circle"></i></a></p>
+                        <input type="text" v-model="order.name" name="name" class="form-control" placeholder="e.g. I need a professional website design">
                     </div>
                     <div class="pick-category">
                         <p class="info-title">Type of document</p>
@@ -94,10 +94,10 @@
                                 <input @change="make_order" v-model="order.level" class="form-control" name="level" id="entry{{$level->id}}" type="radio" value="{{$level->id}}">
                                 <label for="entry{{$level->id}}">
                                     <div class="header">{{$level->name}}</div>
-                                    {{-- <div class="body">
+                                    <div class="body">
                                         {!!$level->description!!}
                                         <span class="symbols">${{$level->string}} per page</span>
-                                    </div> --}}
+                                    </div>
                                 </label>
                             </div>
                             @endforeach
@@ -139,7 +139,7 @@
                                     <p class="info-title">Academic level</p>
                         
                                     <div class="form-group select-work-type">
-                                        <select @change="make_order" v-model="order.academic" name="academic_level" class="custom-select">
+                                        <select name="academic_level" class="custom-select">
                                             @foreach ($academics as $academic)
                                                 <option value="{{$academic->id}}">{{$academic->name}}</option>
                                             @endforeach
@@ -211,26 +211,23 @@
                     </div>
 
                 </form>
-            </div>
+                
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4">
                 <div class="cart" >
-                    <h3>SUMMARY</h3>
-                    <p><b>@{{calculated.category_name}}</b></p>
-                    <p>@{{order.pages}} page(s)/@{{order.pages * 275 * order.spacing}} words </p>
-                    <p>@{{calculated.spacing_name}}<p>
-                    <p>@{{calculated.academic_name}}<p>
-                    <p>Cost per page: $@{{calculated.price}}</p> 
+                    <h3>Summary</h3>
+                    <b>@{{calculated.category_name}}</b><br>
+                    @{{order.pages}} page(s)/@{{order.pages * 275 * order.spacing}} words <br>
+                    @{{calculated.spacing_name}}<br>
+                    <div>Cost per page: $@{{calculated.price}}</div> 
                     <ul class="level-info">
                         <li class="level-info__feature">Level: @{{calculated.level_name}}</li>
                         <li class="level-info__feature" v-for="extra in calculated.extra_name" v-text="extra"></li>
                     </ul>
-                    <p></p>
                     <input style="width: 150px; display: inline-block" v-model="order.coupon" placeholder="Coupon code" class="form-control" type="text"/> <button class="btn btn-success" @click="make_order">Check</button>
                     <div style="color:darkorange" v-if="calculated.coupon_error">
                         @{{calculated.coupon_error}}
                     </div>
-                    <p></p>
                     <div class="old-price" v-if="calculated.total_price_before_discount"> $@{{calculated.total_price_before_discount}}</div>
                     <div class="total text-right">Total: $@{{calculated.total_price}}</div>
 
@@ -268,7 +265,6 @@
                 code_id:0,
                 coupon_code:'',
                 discounted:0,
-                academic:1,
                 total:0,
                 user_id: {{Auth::user()->id}}
             },

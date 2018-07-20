@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>Notifications</h3>
+    <h2>Notifications</h2>
     <br>
     <div class="list-notice">
         @foreach ($notifications as $notice)

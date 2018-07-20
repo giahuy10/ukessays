@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>{{$notification->subject}}</h3>
+    <h2>{{$notification->subject}}</h2>
     {{$notification->created_at}}
     <br>
     <div class="notice-detail">

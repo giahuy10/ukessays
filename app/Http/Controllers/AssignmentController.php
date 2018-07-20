@@ -204,6 +204,11 @@ class AssignmentController extends Controller
         $response['price'] += $urgency->value;
         $response['urgency_name'] = $urgency->name;
 
+        // Price from Academic
+        $academicLevel = AcademicLevel::find($request->academic);
+        $response['price'] += $academicLevel->price;
+        $response['academic_name'] = $academicLevel->name;
+
         // Price from Spacing
         if ($request->spacing == 2) {
             $response['price'] *= 2;

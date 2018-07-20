@@ -7,7 +7,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="db-table">
                     <div class="db-info-head">
-                        <h4>Available Assignments</h4>
+                        <h2>Available Assignments</h2>
                        
                     </div>
                     <div class="db-info-details table-responsive">

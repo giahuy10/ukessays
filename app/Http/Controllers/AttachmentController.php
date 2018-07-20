@@ -40,7 +40,7 @@ class AttachmentController extends Controller
     {
         $attachment = Attachment::findOrFail($id);
         $attachment->delete();
-        return redirect()->route('assignment.show', ['id' => $id])->with('success', 'Attachment is deleted');
+        return redirect()->route('assignment.show', ['id' => $attachment->assignment_id])->with('success', 'Attachment is deleted');
 
     }
 }

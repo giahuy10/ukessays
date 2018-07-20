@@ -13,6 +13,14 @@
                     <input id="name" name="name" type="text" placeholder="Name" class="form-control">
                 </div>
             </div>
+
+            <!-- Price input-->
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="price">Price</label>
+                <div class="col-md-9">
+                    <input id="price" name="price" type="text" placeholder="Price" class="form-control">
+                </div>
+            </div>
             
             <!-- Form actions -->
             <div class="form-group">
