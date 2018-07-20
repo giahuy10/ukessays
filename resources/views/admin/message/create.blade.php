@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form class="form-horizontal" action="{{route('admin.message.store')}}" method="post">
+    <form class="form-horizontal" enctype="multipart/form-data" action="{{route('admin.message.store')}}" method="post">
         @csrf
         <fieldset>
             <!-- Subject input-->
@@ -32,6 +32,13 @@
                     <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
                 </div>
             </div>
+
+            <div class="form-group">
+                    <label class="col-md-2 control-label" for="message">Attachment</label>
+                    <div class="col-md-9">
+                        <input type="file" name="file" class="form-control">
+                    </div>
+                </div>
             
             <!-- Form actions -->
             <div class="form-group">

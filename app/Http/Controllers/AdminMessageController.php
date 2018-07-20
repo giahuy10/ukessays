@@ -31,7 +31,8 @@ class AdminMessageController extends Controller
     
     public function store(Request $request){
         
-        
+        $file = $request->file('file');
+        $file->move(public_path('attachments'),$file->getClientOriginalName());
         
         foreach ($request->users as $user_id) {
             $notice = new Notification;
@@ -39,6 +40,8 @@ class AdminMessageController extends Controller
             $notice->message = $request->message;
             $notice->subject = $request->subject;
             $notice->status = 1;
+            $notice->attachment = $file->getClientOriginalName();
+             
             $notice->save();
            
         }
