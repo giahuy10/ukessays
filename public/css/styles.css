@@ -4111,7 +4111,7 @@ h3 {
     padding: 20px 0 5px;
     font-size: 20px;
 }
-#count-down{
+div#count-down{
     border: 1px solid;
     position: fixed;
     left: 10px;
