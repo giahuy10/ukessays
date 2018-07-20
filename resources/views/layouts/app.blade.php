@@ -218,7 +218,7 @@
                             <li class="nav-item dropdown">
                                     <a class="nav-link" role="button" href="{{route('contact')}}">Contact us</a>	
                                 </li>
-                                @if (Auth::user()->status >=1)
+                                @if (isset(Auth::user()->status) && Auth::user()->status >=1)
 											<li class="nav-item dropdown">
 												@if (Auth::user()->user_type == 1)
 												
