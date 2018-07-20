@@ -40,4 +40,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\WriterLevel','id','status');
     }
+    public function profile()
+    {
+        return $this->hasOne('App\Profile','user_id','id');
+    }
 }

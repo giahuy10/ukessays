@@ -35,7 +35,7 @@ class PaymentController extends Controller
     {
         if ($request->type == 1) {
             $assignment = Assignment::findOrFail($request->get('id'));
-            $price = $assignment->price + 15;
+            $price = $assignment->price + 10;
             $name = $assignment->name;
 
         }else {

@@ -13,6 +13,8 @@ use App\AcademicLevel;
 use App\Style;
 use App\Numresource;
 use App\Language;
+use Auth;
+use App\Finance;
 class AdminOrderController extends Controller
 {
     public function index()
@@ -87,7 +89,32 @@ class AdminOrderController extends Controller
     {
         
         $assignment = Assignment::findOrFail($id);
-        $assignment->update($request->except('_token'));
+       
+
+        $assignment->name = $request->name;
+        $assignment->catid = $request->catid;
+        
+        $urgency = Urgency::findOrFail($request->urgency);
+        
+        $assignment->deadline = date("Y-m-d H:i:s", strtotime($assignment->created_at." + ".$urgency->name));
+        //$assignment->price = $request->price;
+        $assignment->description = $request->description;
+        //$assignment->status = 1;
+        //$assignment->taken_by = 0;
+        //$assignment->created_by = auth()->user()->id;
+        //$assignment->paid = 0;
+        $assignment->urgency = $request->urgency;
+        $assignment->level = $request->level;
+        $assignment->pages = $request->pages;
+        $assignment->spacing = $request->spacing;
+        $assignment->academic_level = $request->academic_level;
+        $assignment->style = $request->style;
+        $assignment->sources = $request->sources;
+        $assignment->language_style = $request->language_style;
+        $assignment->sent_review = $request->sent_review;
+        $assignment->extras = json_encode($request->extra);
+        $assignment->save();
+       
 
         return redirect()->route('order.index')->with('success', 'Item is updated');
     }
@@ -103,5 +130,21 @@ class AdminOrderController extends Controller
         $assignment = Assignment::findOrFail($id);
         $assignment->delete();
         return redirect()->route('order.index')->with('success', 'Item is removed');
+    }
+    public function pay($id){
+        $assignment = Assignment::findOrFail($id);
+        $finance = new Finance();
+        $finance->user_id = $assignment->taken_by;
+        $finance->amount = 0.4 * $assignment->price;
+        $finance->status = 1;
+        $finance->note = "Pay writer";
+        $finance->type= 3;
+        $finance->itemid = $assignment->id;
+        $finance->save();
+
+        $assignment->pay_writer = 1;
+        $assignment->save();
+        return redirect()->route('finance.index')->with('success', 'Payment is created with id '.$finance->id);
+
     }
 }

@@ -10,7 +10,9 @@ class Assignment extends Model
         'name', 'deadline', 'price','catid','description','created_by','taken_by','status'
     ];
     protected $appends = array('statustext');
-
+    public function getExtrasAttribute($value){
+        return json_decode($value);
+    }
     public function getStatustextAttribute()
     {
         switch ($this->status) {
@@ -53,12 +55,41 @@ class Assignment extends Model
     }
     public function messages()
     {
-        return $this->hasMany('App\Message','assignment_id','id');
+        return $this->hasManyThrough(
+            'App\Message', // Post
+            'App\MessageHeader', // User
+            'assignment_id', // Foreign key on users table...
+            'header_id', // Foreign key on posts table...
+            'id', // Local key on countries table...
+            'id' // Local key on users table...
+        );
     }
     public function attachments()
     {
         return $this->hasMany('App\Attachment','assignment_id', 'id');
     }
+    public function levelf()
+    {
+        return $this->hasOne('App\Level','id','level');
+    }
+    public function academic()
+    {
+        return $this->hasOne('App\AcademicLevel','id','academic_level');
+    }
+    public function stylef()
+    {
+        return $this->hasOne('App\Style','id','style');
+    }
+    public function languagef()
+    {
+        return $this->hasOne('App\Language','id','language_style');
+    }
+    public function header()
+    {
+        return $this->hasOne('App\MessageHeader','id','created_message');
+
+    }
+    
    
     
 

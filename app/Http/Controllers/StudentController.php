@@ -3,25 +3,27 @@
 namespace App\Http\Controllers;
 use App\student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Assignment;
+use Auth;
 class StudentController extends Controller
 {
     public function dashboard(){
-        return view('student.index');
+        $assignments = Assignment::where('created_by', Auth::user()->id)->paginate(10);
+        return view('student.index',compact('assignments'));
     }   
-    public function available(){
+    public function orders(){
+
         return view('student.available');
     }
-    public function inprogress(){
-        return view('student.inprogress');
-    }
-    public function completed(){
-        return view('student.completed');
-    }
+  
     public function purchased(){
-        return view('student.purchased');
+        $assignments = Assignment::where(
+            [
+                ['created_by', Auth::user()->id],
+                ['paid', 1]
+            ]
+            )->paginate(10);
+        return view('student.purchased',compact('assignments'));
     }
-    public function inrevision(){
-        return view('student.inrevision');
-    }
+   
 }

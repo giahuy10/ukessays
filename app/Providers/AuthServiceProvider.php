@@ -29,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        Gate::define('accessAdminpanel', function($user) {
+            return $user->user_type === 102;
+        });
 
         //
     }

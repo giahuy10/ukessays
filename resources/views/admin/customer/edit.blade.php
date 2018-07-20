@@ -3,7 +3,7 @@
     Update {{$item->name}} 
 @endsection
 @section('content')
-    <form class="form-horizontal" action="{{route('category.update',['category'=>$item->id])}}" method="POST">
+    <form class="form-horizontal" action="{{route('customer.update',['customer'=>$item->id])}}" method="POST">
         @csrf
         @method('PUT')
 
@@ -15,13 +15,31 @@
                     <input id="name" name="name" type="text" value="{{$item->name}}" placeholder="Name" class="form-control">
                 </div>
             </div>
-            <!-- Message body -->
+
+            <!-- Email input-->
             <div class="form-group">
-                <label class="col-md-2 control-label" for="description">Description</label>
+                <label class="col-md-2 control-label" for="email">Email</label>
                 <div class="col-md-9">
-                    <textarea class="form-control" id="description" name="description" placeholder="Please enter your message here..." rows="5">{{$item->description}}</textarea>
+                    <input id="email" name="email" type="email" value="{{$item->email}}" placeholder="Email" class="form-control">
                 </div>
             </div>
+
+            <!-- Password input-->
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="email">Password</label>
+                <div class="col-md-9">
+                    <input id="password" name="password" type="password"  placeholder="Leave blank if don't want to change Password" class="form-control">
+                </div>
+            </div>
+
+            <!-- Confirm password input-->
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="confirmed">Confirm password</label>
+                <div class="col-md-9">
+                    <input id="email" name="confirmed" type="password"  placeholder="Confirm password" class="form-control">
+                </div>
+            </div>
+            
             <!-- Form actions -->
             <div class="form-group">
                 <div class="col-md-12 widget-right">

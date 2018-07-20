@@ -24,7 +24,7 @@
                             <tr>
                                 <td><a href="{{route('assignment.show', ['id' => $assignment->id])}}">{{$assignment->name}} </a></td>
                                 <td>{{$assignment->deadline}}</td>
-                                <td>${{$assignment->price}}</td>
+                                <td>${{Auth::user()->user_type == 2 ? $assignment->price*0.4 : $assignment->price}}</td>
                             </tr>
                             @endforeach
                             </tbody>

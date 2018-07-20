@@ -3,6 +3,9 @@
     Update {{$item->name}} 
 @endsection
 @section('content')
+<?php 
+    
+?>
     <form class="form-horizontal" action="{{route('order.update',['order'=>$item->id])}}" method="POST">
         @csrf
         @method('PUT')
@@ -88,7 +91,7 @@
                     @foreach ($extras as $extra)
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="extra[]" value="{{$extra->id}}">
+                                <input type="checkbox" name="extra[]" {{isset($item->extras) && in_array($extra->id,$item->extras) ? "checked" : ""}} value="{{$extra->id}}">
                                 {{$extra->name}}
                             </label>
                         </div>
@@ -108,7 +111,7 @@
                 </div>
             </div>
 
-            <!-- Academic levels input-->
+            <!-- Style input-->
             <div class="form-group">
                 <label class="col-md-2 control-label" for="style">Style</label>
                 <div class="col-md-9">

@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Notifications\UserRegisteredSuccessfully;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 use App\User;
 use App\Http\Controllers\Controller;
@@ -8,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Profile;
+use App\Mail\VerifyAcount;
+use Illuminate\Support\Facades\Mail;
+
 class RegisterController extends Controller
 {
     /*
@@ -63,6 +70,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+  
     protected function create(array $data)
     {
         $user = new User;
@@ -72,21 +80,31 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->user_type = $data['user_type'];
         $user->status = 0;
-        $user->confirm_code = encrypt($data['email']);
+        $user->confirm_code = str_random(30).time();
         $user->save();
+
         if ($data['user_type'] == 2) {
             $profile = new Profile;
             $profile->user_id = $user->id;
-            $profile->phone_number = $data['phone_number'];
-            $profile->description = $data['description'];
-            $profile->paypal_email = $data['paypal_email'];
-            $profile->avatar = $data['avatar'];
-            $profile->education = $data['education'];
-            $profile->certification = $data['certification'];
             $profile->save();
         }
-        
-       
+        $user->notify(new UserRegisteredSuccessfully($user));
         return $user;
+    }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($user->user_type == 2) {
+            $this->guard()->login($user);
+            return redirect()->route('test.multiple') ;
+        }else{
+            return redirect('/')->with('success','Before you can login, you must active your account with the code sent to your email address');
+        }
+        
+
+        
     }
 }

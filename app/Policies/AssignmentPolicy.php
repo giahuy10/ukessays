@@ -67,7 +67,7 @@ class AssignmentPolicy
    
     public function pick(User $user, Assignment $assignment)
     {
-        if ($assignment->taken_by || $user->user_type == 1 || $user->level->maximum_order < $assignment->price) {
+        if ($assignment->taken_by || $user->user_type == 1 || $user->level->maximum_order < $assignment->price * 0.4) {
             return false;
         }
         return true;
@@ -75,6 +75,10 @@ class AssignmentPolicy
     public function complete(User $user, Assignment $assignment)
     {
         return $user->id == $assignment->created_by;
+    }
+    public function finished(User $user, Assignment $assignment)
+    {
+        return $user->id == $assignment->taken_by;
     }
     public function revise(User $user, Assignment $assignment)
     {

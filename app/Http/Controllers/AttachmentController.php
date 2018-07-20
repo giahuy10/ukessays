@@ -9,6 +9,7 @@ class AttachmentController extends Controller
 {
     public function store(Request $request)
     {
+       
     	$image = $request->file('file');
         $imageName = $request->id."-".$image->getClientOriginalName();
         $upload_success = $image->move(public_path('attachments'),$imageName);

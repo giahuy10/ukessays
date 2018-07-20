@@ -356,8 +356,9 @@ header .col-lg-5
 .dropdown-user ul.dropdown-menu {
     position: absolute;
     box-shadow: 0 2px 2px 1px rgba(0,0,0,.1);
-    left: 0;
-    right: -20px;
+    left: -99px;
+    right: 100px !important;
+    width: 200px !important;
 }
 .dropdown-user ul.dropdown-menu li {
     display: block;
@@ -928,8 +929,8 @@ body.modal-open #content-wrapper{
 /************** 6.0 - Home Page Css **********/
 /*===========================================*/
 #how-it-works{
-	padding-top: 90px;
-	padding-bottom: 70px;
+	
+	padding-bottom: 20px;
 }
 .how-it-works .title{
 	text-align: center;
@@ -1191,8 +1192,7 @@ body.modal-open #content-wrapper{
 /*===========================================*/
 /**************** Overview ******************/
 .overview{
-	padding-top: 100px;
-	padding-bottom: 100px;
+	padding-bottom: 50px;
 	color: #ffffff;
 }
 .overview-stat{
@@ -2298,7 +2298,7 @@ tr td:last-child{
     bottom: 40px;
 }
 input[type="file"] {
-    display: none;
+    /* display: none; */
 }
 .custom-file-upload {
     border: 1px solid #acacac;
@@ -2679,7 +2679,7 @@ a.close-milestone.pull-right {
 	padding-bottom: 60px;
 }
 .form-group{
-	margin-bottom: 0px;
+	/* margin-bottom: 0px; */
 }
 .get-job-buttons .custom-select{
 	padding: 0px 15px;
@@ -3066,8 +3066,7 @@ a.close-milestone.pull-right {
 /***************** 16.0 - Chatting Page Css *****************/
 /*=========================================================*/
 #chatting-page{
-	padding-top: 100px;
-	padding-bottom: 100px;
+	
 }
 .chatting-page{
 	border: 1px solid #e6eaee;
@@ -3121,6 +3120,11 @@ a.close-milestone.pull-right {
 .chatting-page .users ul li{
 	padding: 10px 15px;
 	background: #fafafa;
+	margin-bottom: 2px;
+}
+.chatting-page .users ul li.active {
+    background: #55b6ad;
+    color: #fff;
 }
 .chatting-page .users ul li .user-details a{
 	display: block;
@@ -4498,16 +4502,10 @@ section#main-content {
 	  font-size: 13px;
 	  font-weight: 500;
 	  margin-bottom: 0; }
-	  .field__label_vas:before {
-		content: '';
-		display: inline-block;
-		margin-right: 12px;
-		width: 19px;
-		height: 19px;
-		border-radius: 2px;
-		border: 1px solid #cbcbcb;
-		-webkit-transition: .3s;
-		transition: .3s; }
+	  .select-work-type input {
+		margin-top: 4px;
+		margin-right: 5px;
+	}
 	  .field__label_vas:hover:before {
 		border-color: #65509c; }
 	  .field__label_vas.disabled {
@@ -4608,4 +4606,34 @@ ul.level-info li {
 }
 a.delete {
     color: #4e1c1c;
+}
+.file-upload #upload {
+    border: 1px solid #ccc;
+    padding: 6px;
+    float: left;
+    margin-top: -5px;
+}
+.cart {
+    /* background: #55b6ada8; */
+    padding: 10px;
+    /* color: #fff; */
+    border: 1px solid #ccc;
+	box-shadow: 0 0 1px 1px #ccc;
+	position: fixed;
+    width: 330px;
+    margin-top: 15px;
+}
+.total.text-right {
+    font-size: 20px;
+    color: #58b6b0;
+}
+.old-price {
+    text-align: right;
+    text-decoration: line-through;
+    color: #868686;
+}
+.notice {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 5px;
+    padding: 10px;
 }

@@ -17,3 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/assignment', 'AssignmentController@api')->name('assignment');
+Route::post('/order', 'AssignmentController@order')->name('api.order');

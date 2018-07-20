@@ -26,8 +26,6 @@ class AdminController extends Controller
     {
         return view('admin.finance');
     }
-    public function message()
-    {
-        return view('admin.message');
-    }
+   
+  
 }

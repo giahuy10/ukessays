@@ -36,10 +36,7 @@
 	<!-- Responsive Css -->
 	
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet">
 		
-		<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}" ></script>
-		<script src="{{ asset('js/dropzone.js') }}" ></script>
 	
 </head>
 <body>
@@ -71,18 +68,20 @@
 									<a class="nav-link" role="button" href="{{ route('register') }}">Sign up as Student</a>	
 								</li>
 								@else
-								<li class="nav-item dropdown">
-									<a class="nav-link" role="button" href="/assignment/edit/0">Post Assignment</a>	
-								</li>
+									@if (Auth::user()->user_type == 1)
+										<li class="nav-item dropdown">
+											<a class="nav-link" role="button" href="/assignment/edit/0">Post Assignment</a>	
+										</li>
+									@endif
 								@endguest
 								<li class="nav-item dropdown">
-									<a class="nav-link" role="button" href="/how-it-works">How it works</a>	
+									<a class="nav-link" role="button" href="{{route('howitworks')}}">How it works</a>	
 								</li>
 								<li class="nav-item dropdown">
-									<a class="nav-link" role="button" href="/blog">Top Writers</a>	
+									<a class="nav-link" role="button" href="{{route('top10')}}">Top Writers</a>	
 								</li>
 								<li class="nav-item dropdown">
-										<a class="nav-link" role="button" href="/blog">Contact us</a>	
+										<a class="nav-link" role="button" href="{{route('contact')}}">Contact us</a>	
 									</li>
 								
 								
@@ -103,13 +102,32 @@
 							@else
 							<li class="menu-bar dropdown dropdown-user">
 									<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img src="/img/profile-img.jpg" alt="">
+											
 											<span>Hi {{Auth::user()->name}}</span>
 									</a>
 									<ul class="dropdown-menu">
-											<li class="nav-item dropdown"><a class="dropdown-item" href="/{{Auth::user()->user_type == 1 ? 'student' : 'writer'}}/dashboard">My Dash board</a></li>
-											<li><a class="dropdown-item" href="/message/{{Auth::user()->id}}">Message</a></li>
-											
+										
+										@if (Auth::user()->status >=1)
+											<li class="nav-item dropdown">
+												@if (Auth::user()->user_type == 1)
+												
+													<a class="dropdown-item" href="{{route('student.dashboard')}}">
+												
+												@elseif (Auth::user()->user_type == 2)
+													<a class="dropdown-item" href="{{route('writer.dashboard')}}">
+
+												@elseif (Auth::user()->user_type == 102)
+													<a class="dropdown-item" href="{{route('admin.dashboard')}}">
+
+												@endif 
+												My Dash board</a>
+											</li>
+											<li><a class="dropdown-item" href="{{route('message.show')}}">Messages</a></li>
+											<li><a class="dropdown-item" href="{{route('notification.index')}}">Notifications</a></li>
+										@endif	
+										@if (Auth::user()->user_type==2)
+											<li><a class="dropdown-item" href="{{route('writer.updateprofile')}}">Update profile</a></li>
+										@endif
 											<li>
 												<a class="dropdown-item" href="{{ route('logout') }}"
 													onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -206,7 +224,28 @@
 	</section>
 	<!-- Modals End -->
 	
-    <!-- Main -->
+	<!-- Main -->
+	<div class="message">
+		<div class="container">
+			@if (session('success'))
+				<div class="alert alert-success">
+					{{ session('success') }}
+				</div>
+			@endif
+			@if (session('warning'))
+				<div class="alert alert-warning">
+					{{ session('warning') }}
+				</div>
+			@endif
+			@if (session('error'))
+				<div class="alert alert-danger">
+					{{ session('error') }}
+				</div>
+			@endif
+		</div>
+	</div>
+	
+	
     <section id="main-content">
         <div id="app">
             @yield('content')
@@ -295,6 +334,7 @@
 
 <script src="{{ asset('js/tether.min.js') }}" ></script>
 <script src="{{ asset('js/popper.min.js') }}" ></script>
+<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}" ></script>
 
 <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
 
