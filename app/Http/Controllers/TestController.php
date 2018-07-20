@@ -59,7 +59,7 @@ class TestController extends Controller
         $profile = Profile::where('user_id',Auth::user()->id)->first();
         $profile->essay = $request->essay_content;
         $profile->save();
-        Mail::to('anjakahuy@gmail.com')->send(new TeacherRegister(Auth::user()));
+        //Mail::to('anjakahuy@gmail.com')->send(new TeacherRegister(Auth::user()));
 
         return view('test.topicresult');
 

@@ -88,7 +88,7 @@ class RegisterController extends Controller
             $profile->user_id = $user->id;
             $profile->save();
         }
-        $user->notify(new UserRegisteredSuccessfully($user));
+        //$user->notify(new UserRegisteredSuccessfully($user));
         return $user;
     }
     public function register(Request $request)
