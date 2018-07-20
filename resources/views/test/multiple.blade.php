@@ -47,7 +47,7 @@
     
 </div>
 
-<div>Time left = <span id="timer"></span></div>
+<div id="count-down"><span id="timer"></span></div>
 
 <script>
 

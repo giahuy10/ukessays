@@ -4107,4 +4107,17 @@ h3 {
     border-radius: 5px;
     background: #f1f1f1;
     margin-bottom: 5px;
+}.question .title {
+    padding: 20px 0 5px;
+    font-size: 20px;
+}
+#count-down{
+    border: 1px solid;
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    z-index: 9999;
+    padding: 10px;
+    background: #287af7;
+    color: #fff;
 }
