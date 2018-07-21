@@ -88,7 +88,7 @@ class AssignmentController extends Controller
         $assignment->deadline = date("Y-m-d H:i:s", strtotime(" + ".$urgency->name));
         $assignment->price = $request->price;
         $assignment->description = $request->description;
-        $assignment->status = 1;
+        $assignment->status = 0;
         $assignment->taken_by = 0;
         $assignment->created_by = auth()->user()->id;
         $assignment->paid = 0;

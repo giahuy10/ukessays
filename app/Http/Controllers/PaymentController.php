@@ -54,6 +54,7 @@ class PaymentController extends Controller
         $finance->save();
         
         Session::put('finance_payment_id', $finance->id);
+       
 
         $payer = new Payer();
                 $payer->setPaymentMethod('paypal');
@@ -115,7 +116,7 @@ class PaymentController extends Controller
         $finance = Finance::findOrFail(Session::get('finance_payment_id'));
         
 
-
+        
         
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
@@ -141,8 +142,9 @@ class PaymentController extends Controller
             if ($finance->type == 1) {
                 $assignment = Assignment::findOrFail($assignment_payment_id);
                 $assignment->paid = 1;
+                $assignment->status = 1;
                 $assignment->save();
-                return redirect()->route('assignment.show',["id"=>$assignment_payment_id])->with('successes', 'Payment success');
+                return redirect()->route('assignment.show',["id"=>$assignment_payment_id])->with('success', 'Payment success');
             }else {
                 $writer = User::findOrFail($finance->user_id);
                 $writer->status = $finance->itemid;
@@ -154,8 +156,8 @@ class PaymentController extends Controller
             $finance->note = $result->getState();
             $finance->save();
             if ($finance->type == 1) 
-                return redirect()->route('assignment.show',["id"=>$assignment_payment_id])->with('errors', 'Payment failed');
+                return redirect()->route('assignment.show',["id"=>$assignment_payment_id])->with('error', 'Payment failed');
             else
-                return redirect()->route('writer.upgrade')->with('errors', 'Payment failed'); 
+                return redirect()->route('writer.upgrade')->with('error', 'Payment failed'); 
     }
 }

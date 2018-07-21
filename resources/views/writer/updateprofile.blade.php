@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Update your profile') }}</div>
+                <div class="card-header"><h2>{{ __('Update your profile') }}</h2></div>
 
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data"  action="{{ route('writer.updateprofile') }}" aria-label="{{ __('Register') }}">

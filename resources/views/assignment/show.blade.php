@@ -11,8 +11,21 @@
                 </div>
             </div>
         </div>
+
         <div class="bidding-header">
-           
+                @if ($assignment->paid ==0 )
+                    <div class="alert alert-danger">
+                        You have to pay ${{$assignment->price + 10}} (${{$assignment->price}} quoted + $10 fee) to publish this order.
+                    </div>
+                    <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="payment-form"  action="{{route('pay')}}">
+                        {{ csrf_field() }}
+                        <input name="id" type="hidden" value="{{$assignment->id}}"></p>
+                        <input name="type" type="hidden" value="1"></p>
+                        <button class="btn btn-success">Pay now</button>
+                    </form>
+                    <p></p>
+                    <p></p>
+                @endif
                         <div class="budget">
                             
                             <h3 class="amount">Budget: ${{Auth::user()->user_type == 2 ? $assignment->writer_price : $assignment->price}}</h3>
@@ -191,7 +204,7 @@
                                         @if (!$assignment->sent_review)
                                             <h3>Rating and review</h3>
                                             <br>
-                                            <form class=" " method="POST" id="payment-form"  action="{{route('assignment.review')}}">
+                                            <form class=" " method="POST" id="rating-form"  action="{{route('assignment.review')}}">
                                                     {{ csrf_field() }}
                                                 <textarea style="height: 100px;" name="review" id="" cols="30" rows="4"></textarea>
                                                 <select name="rating" class="custom-select">
@@ -207,24 +220,7 @@
                                             </form>
                                         @endif
                                     @endif
-                                @else
-                                    @if ($assignment->status ==3 )
-                                        <div class="alert alert-danger">
-                                            You have to pay ${{$assignment->price + 10}} (${{$assignment->price}} quoted + $10 fee) to download documents
-                                        </div>
-                                        <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="payment-form"  action="{{route('pay')}}">
-                                            {{ csrf_field() }}
-                                            <input name="id" type="hidden" value="{{$assignment->id}}"></p>
-                                            <input name="type" type="hidden" value="1"></p>
-                                            <button class="btn btn-success">Pay now</button>
-                                        </form>
-                                    @else
-                                        <br>
-                                        <div class="alert alert-warning">
-                                            You can discuss with writer via chatbox on your left!
-                                        </div>
-                                    @endif
-
+                               
                                 @endif
                             
                             @endif
